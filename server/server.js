@@ -36,7 +36,9 @@ app.listen(3000, () => {
 })
 
 
-
+module.exports = {
+	app: app
+};
 //Moved to mongoose.js
 //var mongoose = require('mongoose');
 //
