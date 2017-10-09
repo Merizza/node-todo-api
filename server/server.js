@@ -1,3 +1,5 @@
+require('./config/config.js');
+
 const _ = require('lodash');
 const express = require('express'),
 	  bodyParser = require('body-parser'),
@@ -8,7 +10,7 @@ var {mongoose} = require('./db/mongoose.js'),
 	{User} = require('./models/user.js');
 
 var app = express();
-var port = process.env.PORT || 3000;
+var port = process.env.PORT; //|| 3000;=> removed, for this port refer to production environment only which is in Heroku
 
 app.use(bodyParser.json());
 
