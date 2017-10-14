@@ -7,7 +7,8 @@ const express = require('express'),
 
 var {mongoose} = require('./db/mongoose.js'),
 	{Todo} = require('./models/todo.js'),
-	{User} = require('./models/user.js');
+	{User} = require('./models/user.js'),
+	{authenticate} = require('./middleware/authenticate');
 
 var app = express();
 var port = process.env.PORT; //|| 3000;=> removed, for this port refer to production environment only which is in Heroku
@@ -147,6 +148,32 @@ app.post('/users', (req, res) => {
 		res.status(400).send(e);
 	});
 		
+});
+
+//var authenticate = (req, res, next) => {
+//	
+//	var token = req.header('x-auth');
+//	
+//	User.findByToken(token).then((user) => {
+//		
+//		if(!user) {
+//			return Promise.reject();
+//		}
+//		
+//		req.user = user;
+//		req.token = token;
+//		next();
+//		
+//	}).catch((e) => {
+//		res.status(401).send();
+//	});
+//	
+//};
+
+app.get('/users/me', authenticate, (req, res) => {
+	
+	res.send(req.user);
+	
 });
 
 app.listen(port, () => {
